@@ -80,8 +80,11 @@ public class MainActivity extends AppCompatActivity {
         buttonScreenShot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("MYLOG", "MainActivity: "+"onClick: "+"getScreenShot: "+getScreenShot());
-                imageView.setImageBitmap(getScreenShot());
+                Log.d("MYLOG", "MainActivity: " + "onClick: " + "getScreenShot: " + getScreenShot());
+
+                Bitmap screenShot = getScreenShot();
+
+                imageView.setImageBitmap(getCroppedimage(screenShot, 0, 0, 500, 300));
             }
         });
     }
@@ -110,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
 
 
     public static File getImage(String imagename) {
@@ -280,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * this is a method to get the screenshot bitmap image
+     *
      * @return Bitmap
      */
     public Bitmap getScreenShot() {
@@ -288,5 +291,11 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
         v1.setDrawingCacheEnabled(false);
         return bitmap;
+    }
+
+
+    public Bitmap getCroppedimage(Bitmap image, int startXCordinat, int startYCordinate, int width, int length) {
+        Bitmap croppedImage = Bitmap.createBitmap(image, startXCordinat, startYCordinate, width, length);
+        return croppedImage;
     }
 }
